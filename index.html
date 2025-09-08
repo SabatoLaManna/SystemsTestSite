@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Safloet Test Login</title>
+  <title>Safloet Test Environment</title>
   <style>
     body { font-family: Arial, sans-serif; padding: 2rem; }
     #login-area { position: absolute; top: 1rem; right: 1rem; }
@@ -13,7 +13,9 @@
       color: white;
       text-decoration: none;
       border-radius: 6px;
+      cursor: pointer;
     }
+    img.avatar { width: 50px; border-radius: 50%; vertical-align: middle; margin-right: 0.5rem; }
   </style>
 </head>
 <body>
@@ -35,14 +37,21 @@ async function updateLoginArea() {
     const data = await res.json();
 
     if (data.logged_in) {
-      // Show avatar, username, Discord ID
+      // Show avatar, username, Discord ID, and logout button
       loginArea.innerHTML = `
-        <img src="${data.user.avatar_url}" alt="avatar" style="width:50px; border-radius:50%; vertical-align:middle;">
+        <img class="avatar" src="${data.user.avatar_url}" alt="avatar">
         <span>${data.user.username} (ID: ${data.user.id})</span>
-        <a href="https://auth.safloetsystems.xyz/logout" class="button" style="margin-left:1rem;">Logout</a>
+        <a id="logout-button" class="button" style="margin-left:1rem;">Logout</a>
       `;
       userData.textContent = JSON.stringify(data.user, null, 2);
       window.currentUser = data.user;
+
+      document.getElementById("logout-button").addEventListener("click", async () => {
+        await fetch("https://auth.safloetsystems.xyz/logout", { credentials: "include" });
+        window.currentUser = null;
+        updateLoginArea(); // refresh UI
+      });
+
     } else {
       // Not logged in — show login button
       loginArea.innerHTML = `
