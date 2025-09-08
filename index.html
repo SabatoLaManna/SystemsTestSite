@@ -7,6 +7,13 @@
     body { font-family: Arial, sans-serif; padding: 2rem; }
     #login-area { position: absolute; top: 1rem; right: 1rem; }
     pre { background: #f0f0f0; padding: 1rem; border-radius: 6px; }
+    a.button {
+      padding: 0.5rem 1rem;
+      background: #5865F2;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+    }
   </style>
 </head>
 <body>
@@ -15,36 +22,32 @@
 
 <div id="login-area"></div>
 
-<h2>User Data (JSON)</h2>
+<h2>User Data</h2>
 <pre id="userdata">Not logged in</pre>
 
 <script>
 async function updateLoginArea() {
+  const loginArea = document.getElementById("login-area");
+  const userData = document.getElementById("userdata");
+
   try {
     const res = await fetch("https://auth.safloetsystems.xyz/me", { credentials: "include" });
     const data = await res.json();
-    const loginArea = document.getElementById("login-area");
-    const userData = document.getElementById("userdata");
 
     if (data.logged_in) {
-      // Show avatar and username
+      // Show avatar, username, Discord ID
       loginArea.innerHTML = `
-        <img src="${data.user.avatar_url}" 
-             alt="avatar" 
-             style="width:50px; border-radius:50%; cursor:pointer;">
-        <span>${data.user.username}</span>
+        <img src="${data.user.avatar_url}" alt="avatar" style="width:50px; border-radius:50%; vertical-align:middle;">
+        <span>${data.user.username} (ID: ${data.user.id})</span>
+        <a href="https://auth.safloetsystems.xyz/logout" class="button" style="margin-left:1rem;">Logout</a>
       `;
-      // Display all user data as JSON
       userData.textContent = JSON.stringify(data.user, null, 2);
-
-      // Store globally
       window.currentUser = data.user;
     } else {
-      // Show login button
+      // Not logged in — show login button
       loginArea.innerHTML = `
-        <a href="https://auth.safloetsystems.xyz/login?next=https://test.safloetsystems.xyz" 
-           style="padding: 0.5rem 1rem; background: #5865F2; color: white; text-decoration: none; border-radius: 6px;">
-           Login with Discord
+        <a href="https://auth.safloetsystems.xyz/login?next=https://test.safloetsystems.xyz" class="button">
+          Login with Discord
         </a>
       `;
       userData.textContent = "Not logged in";
@@ -52,6 +55,8 @@ async function updateLoginArea() {
     }
   } catch (err) {
     console.error("Failed to fetch login status", err);
+    loginArea.innerHTML = `<span style="color:red;">Error loading login</span>`;
+    userData.textContent = "Error fetching data";
   }
 }
 
