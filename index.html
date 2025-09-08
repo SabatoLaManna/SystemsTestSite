@@ -6,7 +6,47 @@
   <link rel="stylesheet" href="css/style.css">
   
 </head>
+<div id="login-area" style="position: absolute; top: 1rem; right: 1rem;"></div>
+
+<script>
+async function updateLoginArea() {
+  try {
+    const res = await fetch("https://auth.safloetsystems.xyz/me", {
+      credentials: "include"
+    });
+    const data = await res.json();
+    const loginArea = document.getElementById("login-area");
+
+    if (data.logged_in) {
+      // Show avatar
+      loginArea.innerHTML = `
+        <img src="${data.user.avatar_url}" 
+             alt="avatar" 
+             style="width:40px; border-radius:50%; cursor:pointer;">
+      `;
+      // Store user data globally for use anywhere
+      window.currentUser = data.user;
+    } else {
+      // Show login button
+      loginArea.innerHTML = `
+        <a href="https://auth.safloetsystems.xyz/login" 
+           style="padding: 0.5rem 1rem; background: #5865F2; color: white; text-decoration: none; border-radius: 6px;">
+           Login with Discord
+        </a>
+      `;
+      window.currentUser = null;
+    }
+  } catch (err) {
+    console.error("Failed to fetch login status", err);
+  }
+}
+
+// Call on page load
+updateLoginArea();
+</script>
+
 <body>
+  
   <header>
     <img src="assets/log.png" alt="Safloet Logo" class="logo">
     <h1>Safloet Systems</h1>
@@ -21,7 +61,9 @@
   </header>
 
   <main>
-    <h2>Ready-Made, Bots needed to be hosted by yourself. </h2>
+    <a href="https://auth.safloetsystems.xyz/login?next=https://safloetsystems.xyz">Login with Discord</a>
+
+    <h2>!!!!!!!!!!! Ready-Made, Bots needed to be hosted by yourself. </h2>
     <p>These bots are designed to be self-hosted, giving you full control over their functionality and performance. Safloet Systems will not host them for you.</p>
 
     <section class="bot-list">
