@@ -2,89 +2,131 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Safloet Test Environment</title>
+  <title>Safloet Systems</title>
+  <link rel="stylesheet" href="css/style.css">
   <style>
-    body { 
-      font-family: Arial, sans-serif; 
-      padding: 2rem; 
-      background-color: #1e1b2f; /* dark purple background */
-      color: #d8b4fe;           /* light purple text */
+    /* Login area in the header */
+    #login-area {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      display: flex;
+      align-items: center;
     }
-    #login-area { position: absolute; top: 1rem; right: 1rem; }
-    pre { 
-      background: #3b0764;      /* darker purple for JSON box */
-      padding: 1rem; 
-      border-radius: 6px; 
-      overflow-x: auto;
-      color: #d8b4fe;
-    }
-    a.button {
-      padding: 0.5rem 1rem;
-      background: #7c3aed;       /* bright purple button */
+    #login-area a.button {
+      padding: 0.4rem 0.8rem;
+      background: #5865F2;
       color: white;
       text-decoration: none;
-      border-radius: 6px;
-      cursor: pointer;
+      border-radius: 5px;
       font-weight: bold;
+      margin-left: 0.5rem;
     }
-    img.avatar { width: 50px; border-radius: 50%; vertical-align: middle; margin-right: 0.5rem; }
-    h1, h2 { color: #c4b5fd; }
+    #login-area img.avatar {
+      width: 35px;
+      border-radius: 50%;
+      margin-right: 0.5rem;
+      vertical-align: middle;
+    }
   </style>
 </head>
 <body>
+  <header>
+    <img src="assets/log.png" alt="Safloet Logo" class="logo">
+    <h1>Safloet Systems</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="purchase.html">How to Purchase</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="tos.html">Terms of Service</a>
+      <a href="contact.html">Contact Us</a>
+      <a href="https://stats.uptimerobot.com/Otkd3JTFG7">Uptime Stats</a>
+    </nav>
+    <div id="login-area">
+      <!-- Login button or user info will appear here -->
+    </div>
+  </header>
 
-<h1>Safloet Test Environment</h1>
+  <main>
+    <h2>Ready-Made, Bots needed to be hosted by yourself. </h2>
+    <p>These bots are designed to be self-hosted, giving you full control over their functionality and performance. Safloet Systems will not host them for you.</p>
 
-<div id="login-area"></div>
+    <section class="bot-list">
+      <div class="bot-card">
+        <h3>Safloet Moderation Bot</h3>
+        <p>Advanced moderation features for your Discord server.</p>
+        <a href="bots/SafloetModerationBot.html">View Bot</a>
+      </div>
+      <div class="bot-card">
+        <h3>Safloet Gambling Bot</h3>
+        <p>Advanced gambling features for your Discord server.</p>
+        <a href="bots/SafloetGamblingBot.html">View Bot</a>
+      </div>
+      <div class="bot-card">
+        <h3>Safloet Ticket Bot</h3>
+        <p>Advanced support features for your Discord server.</p>
+        <a href="bots/SafloetTicketBot.html">View Bot</a>
+      </div>
+    </section>
 
-<h2>User Data (JSON)</h2>
-<pre id="userdata">Not logged in</pre>
+    <h2>Hosted bots</h2>
+    <p>These bots are hosted by Safloet Systems, providing you with a hassle-free experience. You can use them without needing to set up your own hosting environment.</p>
+    <section class="bot-list">
+      <div class="bot-card">
+        <h3>Safloet Verification Bot</h3>
+        <p>Verification for your RoK projects and kingdom.</p>
+        <a href="bots/SafloetVerificationBot.html">View Bot</a>
+      </div>
+      <div class="bot-card">
+        <h3>Safloet Centralized RoK Marketplace</h3>
+        <p>Verification for your RoK projects and kingdom.</p>
+        <a href="bots/SafloetVerificationBot.html">View Bot</a>
+      </div>
+    </section>
+  </main>
 
-<script>
-async function updateLoginArea() {
-  const loginArea = document.getElementById("login-area");
-  const userData = document.getElementById("userdata");
+  <footer>
+    <p>© 2025 Safloet Systems. All rights reserved.</p>
+  </footer>
 
-  try {
-    const res = await fetch("https://auth.safloetsystems.xyz/me", { credentials: "include" });
-    const data = await res.json();
+  <script>
+    async function updateLoginArea() {
+      const loginArea = document.getElementById("login-area");
 
-    if (data.logged_in) {
-      // Show avatar, username, Discord ID, logout button
-      loginArea.innerHTML = `
-        <img class="avatar" src="${data.user.avatar_url}" alt="avatar">
-        <span>${data.user.username} (ID: ${data.user.id})</span>
-        <a id="logout-button" class="button" style="margin-left:1rem;">Logout</a>
-      `;
-      userData.textContent = JSON.stringify(data.user, null, 2);
-      window.currentUser = data.user;
+      try {
+        const res = await fetch("https://auth.safloetsystems.xyz/me", { credentials: "include" });
+        const data = await res.json();
 
-      document.getElementById("logout-button").addEventListener("click", async () => {
-        await fetch("https://auth.safloetsystems.xyz/logout", { credentials: "include" });
-        window.currentUser = null;
-        updateLoginArea(); // refresh UI
-      });
+        if (data.logged_in) {
+          // Show avatar and username
+          loginArea.innerHTML = `
+            <img class="avatar" src="${data.user.avatar_url}" alt="avatar">
+            <span>${data.user.username}</span>
+            <a id="logout-button" class="button">Logout</a>
+          `;
 
-    } else {
-      // Not logged in — show login button
-      loginArea.innerHTML = `
-        <a href="https://auth.safloetsystems.xyz/login?next=https://test.safloetsystems.xyz" class="button">
-          Login with Discord
-        </a>
-      `;
-      userData.textContent = "Not logged in";
-      window.currentUser = null;
+          document.getElementById("logout-button").addEventListener("click", async () => {
+            await fetch("https://auth.safloetsystems.xyz/logout", { credentials: "include" });
+            updateLoginArea(); // refresh UI
+          });
+
+        } else {
+          // Show login button
+          loginArea.innerHTML = `
+            <a href="https://auth.safloetsystems.xyz/login?next=https://safloetsystems.xyz" class="button">
+              Login with Discord
+            </a>
+          `;
+        }
+      } catch (err) {
+        console.error("Failed to fetch login status", err);
+        loginArea.innerHTML = `<span style="color:red;">Error loading login</span>`;
+      }
     }
-  } catch (err) {
-    console.error("Failed to fetch login status", err);
-    loginArea.innerHTML = `<span style="color:red;">Error loading login</span>`;
-    userData.textContent = "Error fetching data";
-  }
-}
 
-// Run on page load
-updateLoginArea();
-</script>
+    // Run on page load
+    updateLoginArea();
+  </script>
 
 </body>
 </html>
