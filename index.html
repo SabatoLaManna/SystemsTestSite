@@ -4,18 +4,31 @@
   <meta charset="UTF-8">
   <title>Safloet Test Environment</title>
   <style>
-    body { font-family: Arial, sans-serif; padding: 2rem; }
+    body { 
+      font-family: Arial, sans-serif; 
+      padding: 2rem; 
+      background-color: #0f172a; /* dark blue background */
+      color: #e0f2fe;           /* light blue text */
+    }
     #login-area { position: absolute; top: 1rem; right: 1rem; }
-    pre { background: #f0f0f0; padding: 1rem; border-radius: 6px; }
+    pre { 
+      background: #1e293b;      /* darker blue for JSON box */
+      padding: 1rem; 
+      border-radius: 6px; 
+      overflow-x: auto;
+      color: #e0f2fe;
+    }
     a.button {
       padding: 0.5rem 1rem;
-      background: #5865F2;
+      background: #3b82f6;       /* bright blue button */
       color: white;
       text-decoration: none;
       border-radius: 6px;
       cursor: pointer;
+      font-weight: bold;
     }
     img.avatar { width: 50px; border-radius: 50%; vertical-align: middle; margin-right: 0.5rem; }
+    h1, h2 { color: #60a5fa; }
   </style>
 </head>
 <body>
@@ -24,7 +37,7 @@
 
 <div id="login-area"></div>
 
-<h2>User Data</h2>
+<h2>User Data (JSON)</h2>
 <pre id="userdata">Not logged in</pre>
 
 <script>
@@ -37,7 +50,7 @@ async function updateLoginArea() {
     const data = await res.json();
 
     if (data.logged_in) {
-      // Show avatar, username, Discord ID, and logout button
+      // Show avatar, username, Discord ID, logout button
       loginArea.innerHTML = `
         <img class="avatar" src="${data.user.avatar_url}" alt="avatar">
         <span>${data.user.username} (ID: ${data.user.id})</span>
