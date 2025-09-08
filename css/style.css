@@ -4,39 +4,31 @@ body {
   background-color: #0d0f1b;
   color: #f0f0f0;
 }
-
 header {
-  background: #111827;
-  padding: 1rem 2rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 1rem 2rem;
+  background: #111827;
   border-bottom: 3px solid #1397b8;
-  position: relative;
 }
 
-/* Logo + title container */
-header .logo-title {
+.logo-title {
   display: flex;
   align-items: center;
-  gap: 1rem; /* space between logo and title */
+  gap: 1rem;
 }
 
-/* Logo */
 header .logo {
-  height: 100px; /* increased size */
-  vertical-align: middle;
+  height: 100px;
 }
 
-/* Title */
 header h1 {
   color: #ffffff;
-  font-size: 2rem; /* bigger title */
+  font-size: 2rem;
   margin: 0;
-  vertical-align: middle;
 }
 
-/* Navigation */
 header nav {
   display: flex;
   gap: 1rem;
@@ -57,17 +49,14 @@ header nav a {
 header nav a:hover {
   background: #1397b8;
   border-color: #1397b8;
-  color: #ffffff;
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(19, 151, 184, 0.4);
 }
 
-/* Login area (avatar + logout/login button) */
 #login-area {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  margin-left: 0rem;
 }
 
 #login-area img.avatar {
@@ -75,17 +64,19 @@ header nav a:hover {
   border-radius: 50%;
 }
 
-#login-area a.button {
+#login-area a.button, #login-area button.button {
   padding: 0.4rem 0.8rem;
   background: #5865F2;
   color: white;
   text-decoration: none;
   border-radius: 5px;
   font-weight: bold;
+  border: none;
+  cursor: pointer;
   transition: all 0.2s ease;
 }
 
-#login-area a.button:hover {
+#login-area a.button:hover, #login-area button.button:hover {
   background: #4752c4;
   transform: translateY(-1px);
 }

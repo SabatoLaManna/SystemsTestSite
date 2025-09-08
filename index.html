@@ -7,20 +7,25 @@
 </head>
 <body>
   <header>
+  <div class="logo-title">
     <img src="assets/log.png" alt="Safloet Logo" class="logo">
-    <h1>Safloet Systems Site</h1>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="purchase.html">How to Purchase</a>
-      <a href="privacy.html">Privacy Policy</a>
-      <a href="tos.html">Terms of Service</a>
-      <a href="contact.html">Contact Us</a>
-      <a href="https://stats.uptimerobot.com/Otkd3JTFG7">Uptime Stats</a>
-    </nav>
-    <div id="login-area">
-      
-    </div>
-  </header>
+    <h1>Safloet Systems</h1>
+  </div>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="purchase.html">How to Purchase</a>
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="tos.html">Terms of Service</a>
+    <a href="contact.html">Contact Us</a>
+    <a href="https://stats.uptimerobot.com/Otkd3JTFG7">Uptime Stats</a>
+  </nav>
+
+  <div id="login-area">
+    <!-- JS will populate login button or avatar -->
+  </div>
+</header>
+
 
   <main>
     <h2>Ready-Made, Bots needed to be hosted by yourself. </h2>
@@ -73,26 +78,21 @@
         const data = await res.json();
 
         if (data.logged_in) {
-          // Show avatar and username
           loginArea.innerHTML = `
             <img class="avatar" src="${data.user.avatar_url}" alt="avatar">
             <span>${data.user.username}</span>
-            <a id="logout-button" class="button">Logout</a>
+            <button id="logout-button" class="button">Logout</button>
           `;
-
           document.getElementById("logout-button").addEventListener("click", async () => {
             await fetch("https://auth.safloetsystems.xyz/logout", { credentials: "include" });
-            updateLoginArea(); // refresh UI
+            updateLoginArea();
           });
-
         } else {
-          // Show login button
           loginArea.innerHTML = `
-            <a href="https://auth.safloetsystems.xyz/login?next=https://safloetsystems.xyz" class="button">
-              Login with Discord
-            </a>
+            <a href="https://auth.safloetsystems.xyz/login?next=https://safloetsystems.xyz" class="button">Login with Discord</a>
           `;
         }
+
       } catch (err) {
         console.error("Failed to fetch login status", err);
         loginArea.innerHTML = `<span style="color:red;">Error loading login</span>`;
