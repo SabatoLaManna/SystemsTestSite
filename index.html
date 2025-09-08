@@ -28,7 +28,7 @@
 
 
   <main>
-    <h2>FUCKKKK Ready-Made, Bots needed to be hosted by yourself. </h2>
+    <h2>Kill me Ready-Made, Bots needed to be hosted by yourself. </h2>
     <p>These bots are designed to be self-hosted, giving you full control over their functionality and performance. Safloet Systems will not host them for you.</p>
 
     <section class="bot-list">
@@ -70,7 +70,7 @@
   </footer>
 
   <script>
-    async function updateLoginArea() {
+   async function updateLoginArea() {
       const loginArea = document.getElementById("login-area");
 
       try {
@@ -78,6 +78,7 @@
         const data = await res.json();
 
         if (data.logged_in) {
+          // Show avatar + username + logout as button
           loginArea.innerHTML = `
             <img class="avatar" src="${data.user.avatar_url}" alt="avatar">
             <span>${data.user.username}</span>
@@ -88,11 +89,11 @@
             updateLoginArea();
           });
         } else {
+          // Show login as purple button
           loginArea.innerHTML = `
             <a href="https://auth.safloetsystems.xyz/login?next=https://safloetsystems.xyz" class="button">Login with Discord</a>
           `;
         }
-
       } catch (err) {
         console.error("Failed to fetch login status", err);
         loginArea.innerHTML = `<span style="color:red;">Error loading login</span>`;
@@ -101,6 +102,7 @@
 
     // Run on page load
     updateLoginArea();
+
   </script>
   
 

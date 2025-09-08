@@ -13,22 +13,26 @@ header {
   border-bottom: 3px solid #1397b8;
 }
 
+/* Logo + title container */
 .logo-title {
   display: flex;
   align-items: center;
   gap: 1rem;
 }
 
-header .logo {
+/* Logo */
+.logo-title .logo {
   height: 100px;
 }
 
-header h1 {
+/* Title */
+.logo-title h1 {
   color: #ffffff;
   font-size: 2rem;
   margin: 0;
 }
 
+/* Navigation */
 header nav {
   display: flex;
   gap: 1rem;
@@ -53,33 +57,37 @@ header nav a:hover {
   box-shadow: 0 4px 12px rgba(19, 151, 184, 0.4);
 }
 
+/* Login area */
 #login-area {
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
 
+/* Avatar */
 #login-area img.avatar {
   width: 40px;
   border-radius: 50%;
 }
 
-#login-area a.button, #login-area button.button {
-  padding: 0.4rem 0.8rem;
-  background: #5865F2;
+/* Login/logout button */
+#login-area .button {
+  padding: 0.5rem 1rem;
+  background: #7e5bef; /* purple */
   color: white;
   text-decoration: none;
-  border-radius: 5px;
-  font-weight: bold;
+  border-radius: 6px;
+  font-weight: 600;
   border: none;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
-#login-area a.button:hover, #login-area button.button:hover {
-  background: #4752c4;
+#login-area .button:hover {
+  background: #6331d2;
   transform: translateY(-1px);
 }
+
 
 
 
